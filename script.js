@@ -6,8 +6,13 @@ const numStocksEl = document.getElementById('num-stocks');
 const buyValueEl = document.querySelector('.buy-value');
 const sellValueEl = document.querySelector('.sell-value');
 
+const PLEl = document.querySelector('.profit-or-loss');
+const PLValue = document.querySelector('.profit-or-loss-value');
+const percEl = document.querySelector('.percentage');
+const percValue = document.querySelector('.percentage-value');
+
 const apiURL = 'http://api.marketstack.com/v1/eod';
-const key = '35357d48e4870207f9881d6f81f0e793';
+const key = 'c48970cc137ba88422dfb828092901cb';
 
 function displayErorr(flag) {
   const errorHTML =
@@ -36,9 +41,21 @@ async function fetchData(ticker, exchange, date) {
   return Math.round(json.data[0].close);
 }
 
-function outputPrice(buy, sell) {
-  buyValueEl.innerText = buy;
-  sellValueEl.innerText = sell;
+function outputDetails(buyPrice, sellPrice, numStocks) {
+  const currency = '₹';
+
+  buyValueEl.innerText = currency + buyPrice;
+  sellValueEl.innerText = currency + sellPrice;
+
+  const profitStat = sellPrice > buyPrice ? 'Profit' : 'Loss';
+
+  PLEl.innerText = 'Total ' + profitStat;
+  PLValue.innerText = currency + Math.abs(sellPrice - buyPrice) * numStocks;
+  percEl.innerText = `${profitStat} %`;
+  percValue.innerText = (
+    (Math.abs(sellPrice - buyPrice) * 100) /
+    sellPrice
+  ).toFixed(2);
 }
 
 function doubleDigits(num) {
@@ -63,12 +80,16 @@ async function formDataHandler(e) {
   const [ticker, exchange, date, numStocks] = [...formEntries.values()];
   console.log(ticker, exchange, date, numStocks);
 
-  displayErorr(Number.parseInt(numStocks) <= 0);
+  if (Number.parseInt(numStocks) <= 0) {
+    displayErorr(true);
+    return;
+  }
 
+  displayErorr(false);
   const buyPrice = await fetchData(ticker, exchange, date);
   const sellPrice = await fetchData(ticker, exchange, 'latest');
 
-  outputPrice(buyPrice, sellPrice);
+  outputDetails(buyPrice, sellPrice, +numStocks);
 }
 
 // Event Listener
