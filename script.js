@@ -39,7 +39,7 @@ function displayAPIError(code) {
 }
 
 async function fetchData(ticker, exchange, date) {
-  const fetchURL = `/api/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
+  const fetchURL = `https://abinjohn-pl-calculator.netlify.app/api/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
 
   const urlData = await fetch(fetchURL);
 
