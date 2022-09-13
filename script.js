@@ -4,6 +4,7 @@ const form = document.querySelector('.stock-form');
 const datePicker = document.getElementById('date-picker');
 const numStocksEl = document.getElementById('num-stocks');
 
+const outputContainer = document.querySelector('.output-content');
 const outputTable = document.querySelector('.output-table');
 const apiError = document.querySelector('.output-api-error');
 const buyValueEl = document.querySelector('.buy-value');
@@ -81,6 +82,7 @@ function outputDetails(buyPrice, sellPrice, numStocks) {
     sellPrice
   ).toFixed(2);
   outputTable.classList.remove('hidden');
+  outputContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
 function doubleDigits(num) {
