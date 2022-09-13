@@ -32,3 +32,12 @@ body {
   flex-direction: column;
   gap: 0.4rem;
 }
+
+.radios {
+  display: flex;
+  gap: 2rem;
+}
+
+.error-message {
+  text-align: center;
+}

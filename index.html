@@ -20,10 +20,14 @@
         <div class="form-row">
           <p>Choose exchange</p>
           <div class="radios">
-            <input type="radio" name="exchange" id="nse" value="XNSE" />
-            <label for="nse">NSE</label>
-            <input type="radio" name="exchange" id="bse" value="XBOM" />
-            <label for="bse">BSE</label>
+            <div class="radio">
+              <input type="radio" name="exchange" id="nse" value="XNSE" />
+              <label for="nse">NSE</label>
+            </div>
+            <div class="radio">
+              <input type="radio" name="exchange" id="bse" value="XBOM" />
+              <label for="bse">BSE</label>
+            </div>
           </div>
         </div>
         <div class="form-row">
@@ -39,12 +43,27 @@
         </div>
       </form>
       <div class="output-content">
-        <div class="output-buy-price">
-          <p>Buy Price: Rs <span class="buy-value"></span></p>
-        </div>
-        <div class="output-curent-price">
-          <p>Current Price: Rs <span class="sell-value"></span></p>
-        </div>
+        <table class="output-table">
+          <tbody>
+            <tr>
+              <td>Buy Price</td>
+              <td class="buy-value"></td>
+            </tr>
+            <tr>
+              <td>Sell Price</td>
+              <td class="sell-value"></td>
+            </tr>
+            <tr>
+              <td class="profit-or-loss"></td>
+              <td class="profit-or-loss-value"></td>
+            </tr>
+            <tr>
+              <td class="percentage"></td>
+              <td class="percentage-value"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="output-abs-profit"></div>
       </div>
     </div>
     <script src="script.js"></script>
