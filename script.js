@@ -54,6 +54,7 @@ async function fetchData(ticker, exchange, date) {
     displayAPIError(1);
     return false;
   }
+  console.log(json.data);
   return Math.round(json.data[0].close);
 }
 
