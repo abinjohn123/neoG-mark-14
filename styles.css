@@ -16,15 +16,19 @@ body {
   justify-content: center;
 }
 
-.flex {
-  display: flex;
-  gap: 1rem;
+.error {
+  border: 2px solid red !important;
 }
 
 .container {
   border: 1px solid;
+  padding: 4rem;
 }
 
 .form-row {
   margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
