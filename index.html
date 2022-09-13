@@ -8,6 +8,38 @@
     <title>Profit-Loss</title>
   </head>
   <body>
+    <div class="container">
+      <div class="header">
+        <h1>Profit / Loss Calculator</h1>
+      </div>
+      <form class="stock-form">
+        <div class="form-row">
+          <p>Choose exchange</p>
+          <input type="radio" name="exchange" id="nse" value="XNSE" />
+          <label for="nse">NSE</label>
+          <input type="radio" name="exchange" id="bse" value="XBOM" />
+          <label for="bse">BSE</label>
+        </div>
+        <div class="form-row">
+          <div class="form-row-date">
+            <label for="date">Buy date</label>
+            <input type="date" name="date" id="date" />
+          </div>
+          <div class="form-row-value">
+            <p class="buy-value">Rs.</p>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="sell-price">Sell Price</label>
+          <input type="number" name="sell-price" id="sell-price" />
+        </div>
+
+        <div class="form-row">
+          <button type="submit">Check</button>
+        </div>
+      </form>
+      <div class="output"></div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
