@@ -5,6 +5,7 @@ const datePicker = document.getElementById('date-picker');
 const numStocksEl = document.getElementById('num-stocks');
 
 const outputTable = document.querySelector('.output-table');
+const apiError = document.querySelector('.output-api-error');
 const buyValueEl = document.querySelector('.buy-value');
 const sellValueEl = document.querySelector('.sell-value');
 const PLEl = document.querySelector('.profit-or-loss');
@@ -15,7 +16,7 @@ const percValue = document.querySelector('.percentage-value');
 const apiURL = 'http://api.marketstack.com/v1/eod';
 const key = 'c48970cc137ba88422dfb828092901cb';
 
-function displayErorr(flag) {
+function displayInputErorr(flag) {
   const errorHTML =
     '<p class="error-message">Number should be greater than 0</p>';
   if (flag) {
@@ -28,18 +29,34 @@ function displayErorr(flag) {
   }
 }
 
+function displayAPIError() {
+  apiError.innerHTML =
+    'There was an error while retrieving stock price info. Please recheck your inputs.';
+}
+
 async function fetchData(ticker, exchange, date) {
   const fetchURL = `${apiURL}/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
 
   const urlData = await fetch(fetchURL);
 
-  if (!urlData.status === 422) {
-    console.log('error', urlData);
-    return;
+  if (urlData.status === 422) {
+    displayAPIError();
+    return false;
   }
 
   const json = await urlData.json();
+  console.log(json);
   return Math.round(json.data[0].close);
+}
+
+function setOutputColor(stat) {
+  if (stat) {
+    outputTable.classList.remove('loss');
+    outputTable.classList.add('profit');
+  } else {
+    outputTable.classList.remove('profit');
+    outputTable.classList.add('loss');
+  }
 }
 
 function outputDetails(buyPrice, sellPrice, numStocks) {
@@ -49,6 +66,7 @@ function outputDetails(buyPrice, sellPrice, numStocks) {
   sellValueEl.innerText = currency + sellPrice;
 
   const profitStat = sellPrice > buyPrice ? 'Profit' : 'Loss';
+  setOutputColor(sellPrice > buyPrice);
 
   PLEl.innerText = 'Total ' + profitStat;
   PLValue.innerText = currency + Math.abs(sellPrice - buyPrice) * numStocks;
@@ -83,15 +101,15 @@ async function formDataHandler(e) {
   console.log(ticker, exchange, date, numStocks);
 
   if (Number.parseInt(numStocks) <= 0) {
-    displayErorr(true);
+    displayInputErorr(true);
     return;
   }
 
-  displayErorr(false);
+  displayInputErorr(false);
   const buyPrice = await fetchData(ticker, exchange, date);
   const sellPrice = await fetchData(ticker, exchange, 'latest');
 
-  outputDetails(buyPrice, sellPrice, +numStocks);
+  if (buyPrice && sellPrice) outputDetails(buyPrice, sellPrice, +numStocks);
 }
 
 // Event Listener
