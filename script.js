@@ -53,7 +53,6 @@ async function fetchData(ticker, exchange, date) {
     displayAPIError(1);
     return false;
   }
-  console.log(json);
   return Math.round(json.data[0].close);
 }
 
@@ -116,7 +115,6 @@ async function formDataHandler(e) {
   const formEntries = new FormData(form);
 
   const [ticker, exchange, date, numStocks] = [...formEntries.values()];
-  console.log(ticker, exchange, date, numStocks);
 
   if (Number.parseInt(numStocks) <= 0) {
     displayInputErorr(true);
