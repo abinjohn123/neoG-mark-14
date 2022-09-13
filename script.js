@@ -13,7 +13,6 @@ const PLValue = document.querySelector('.profit-or-loss-value');
 const percEl = document.querySelector('.percentage');
 const percValue = document.querySelector('.percentage-value');
 
-// const apiURL = 'http://api.marketstack.com/v1/eod';
 const key = '3836e64d9024018914f686e50934041a';
 
 function displayInputErorr(flag) {
@@ -91,14 +90,18 @@ function doubleDigits(num) {
   return num.toString().padStart(2, '0');
 }
 
-function setMaxDate() {
+function setMinMaxDate() {
   const today = new Date();
-  const year = doubleDigits(today.getFullYear());
+  const yearMax = doubleDigits(today.getFullYear());
+  const yearMin = doubleDigits(today.getFullYear() - 1);
   const month = doubleDigits(today.getMonth() + 1);
-  const date = doubleDigits(today.getDate() - 1);
+  const dateMin = doubleDigits(today.getDate());
+  const dateMax = doubleDigits(today.getDate() - 1);
 
-  const dateString = [year, month, date].join('-');
-  datePicker.setAttribute('max', dateString);
+  const dateStringMax = [yearMax, month, dateMax].join('-');
+  const dateStringMin = [yearMin, month, dateMin].join('-');
+  datePicker.setAttribute('max', dateStringMax);
+  datePicker.setAttribute('min', dateStringMin);
 }
 
 function clearOutputs() {
@@ -131,5 +134,5 @@ async function formDataHandler(e) {
 form.addEventListener('submit', formDataHandler);
 
 // Init
-setMaxDate();
+setMinMaxDate();
 clearOutputs();
