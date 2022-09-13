@@ -9,19 +9,25 @@
   </head>
   <body>
     <div class="container">
-      <div class="header">
+      <div class="header m4">
         <h1>Profit / Loss Calculator</h1>
       </div>
-      <form class="stock-form">
+      <form class="stock-form m4">
         <div class="form-row">
           <label for="ticker">Ticker Symbol: </label>
-          <input type="text" name="ticker" id="ticker" />
+          <input required type="text" name="ticker" id="ticker" />
         </div>
         <div class="form-row">
           <p>Choose exchange</p>
           <div class="radios">
             <div class="radio">
-              <input type="radio" name="exchange" id="nse" value="XNSE" />
+              <input
+                type="radio"
+                name="exchange"
+                id="nse"
+                value="XNSE"
+                required
+              />
               <label for="nse">NSE</label>
             </div>
             <div class="radio">
@@ -32,14 +38,14 @@
         </div>
         <div class="form-row">
           <label for="date">Buy date</label>
-          <input type="date" name="date" id="date-picker" />
+          <input required type="date" name="date" id="date-picker" />
         </div>
         <div class="form-row">
           <label for="num-stocks">Number of stocks: </label>
-          <input type="number" name="num-stocks" id="num-stocks" />
+          <input required type="number" name="num-stocks" id="num-stocks" />
         </div>
         <div class="form-row">
-          <button type="submit">Check</button>
+          <button class="btn" type="submit">Check</button>
         </div>
       </form>
       <div class="output-content">
