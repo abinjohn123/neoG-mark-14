@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 :root {
   --primary: #4b7bec;
   --primary-light: #5d88ee;
@@ -28,7 +30,7 @@ body {
   min-height: 100vh;
   padding: 2rem 0.4rem;
   font-size: 1.6rem;
-  font-family: sans-serif;
+  font-family: 'Inter', sans-serif;
 
   display: flex;
   justify-content: center;
@@ -66,6 +68,7 @@ input {
 
 input:focus {
   outline: none;
+  box-shadow: 0 0 3px var(--primary-light);
 }
 
 .container {
@@ -91,6 +94,7 @@ input:focus {
   padding: 0.8rem 1.6rem;
   border: none;
   background-color: var(--primary);
+  color: var(--bg);
   border-radius: 3px;
   cursor: pointer;
   font-size: 2rem;
