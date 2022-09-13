@@ -3,9 +3,10 @@
 const form = document.querySelector('.stock-form');
 const datePicker = document.getElementById('date-picker');
 const numStocksEl = document.getElementById('num-stocks');
+
+const outputTable = document.querySelector('.output-table');
 const buyValueEl = document.querySelector('.buy-value');
 const sellValueEl = document.querySelector('.sell-value');
-
 const PLEl = document.querySelector('.profit-or-loss');
 const PLValue = document.querySelector('.profit-or-loss-value');
 const percEl = document.querySelector('.percentage');
@@ -56,6 +57,7 @@ function outputDetails(buyPrice, sellPrice, numStocks) {
     (Math.abs(sellPrice - buyPrice) * 100) /
     sellPrice
   ).toFixed(2);
+  outputTable.style.display = 'table';
 }
 
 function doubleDigits(num) {
@@ -97,3 +99,4 @@ form.addEventListener('submit', formDataHandler);
 
 // Init
 setMaxDate();
+outputTable.style.display = 'none';
