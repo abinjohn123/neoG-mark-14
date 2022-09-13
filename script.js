@@ -13,8 +13,8 @@ const PLValue = document.querySelector('.profit-or-loss-value');
 const percEl = document.querySelector('.percentage');
 const percValue = document.querySelector('.percentage-value');
 
-const apiURL = 'http://api.marketstack.com/v1/eod';
-const key = 'c48970cc137ba88422dfb828092901cb';
+// const apiURL = 'http://api.marketstack.com/v1/eod';
+const key = '3836e64d9024018914f686e50934041a';
 
 function displayInputErorr(flag) {
   const errorHTML =
@@ -39,7 +39,7 @@ function displayAPIError(code) {
 }
 
 async function fetchData(ticker, exchange, date) {
-  const fetchURL = `${apiURL}/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
+  const fetchURL = `https://abinjohn-pl-calculator.netlify.app/api/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
 
   const urlData = await fetch(fetchURL);
 
@@ -54,6 +54,7 @@ async function fetchData(ticker, exchange, date) {
     displayAPIError(1);
     return false;
   }
+  console.log(json);
   return Math.round(json.data[0].close);
 }
 
