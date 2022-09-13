@@ -9,15 +9,35 @@ html {
 }
 
 body {
-  font-size: 1.6rem;
   height: 100vh;
+  font-size: 1.6rem;
+  font-family: sans-serif;
 
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.m4 {
+  margin-bottom: 4rem;
 }
 
 .error {
   border: 2px solid red !important;
+}
+
+.error-message {
+  text-align: center;
+}
+
+input {
+  padding: 0.8rem;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
 }
 
 .container {
@@ -38,6 +58,24 @@ body {
   gap: 2rem;
 }
 
-.error-message {
-  text-align: center;
+.btn {
+  padding: 0.8rem 1.6rem;
+}
+
+.output-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.output-table {
+  border: 1px solid;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.output-table td {
+  border: 1px solid;
+  border-collapse: collapse;
+  padding: 0.4rem 0.8rem;
 }
