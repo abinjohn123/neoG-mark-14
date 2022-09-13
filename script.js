@@ -29,9 +29,13 @@ function displayInputErorr(flag) {
   }
 }
 
-function displayAPIError() {
-  apiError.innerHTML =
-    'There was an error while retrieving stock price info. Please recheck your inputs.';
+function displayAPIError(code) {
+  apiError.classList.remove('hidden');
+  if (code === 0) apiError.innerText = 'No data available for given ticker';
+
+  if (code === 1)
+    apiError.innerText =
+      'No data available for given buy date. Check if markets were open then.';
 }
 
 async function fetchData(ticker, exchange, date) {
@@ -40,12 +44,16 @@ async function fetchData(ticker, exchange, date) {
   const urlData = await fetch(fetchURL);
 
   if (urlData.status === 422) {
-    displayAPIError();
+    displayAPIError(0);
     return false;
   }
 
   const json = await urlData.json();
-  console.log(json);
+
+  if (json.data.length === 0) {
+    displayAPIError(1);
+    return false;
+  }
   return Math.round(json.data[0].close);
 }
 
@@ -75,7 +83,7 @@ function outputDetails(buyPrice, sellPrice, numStocks) {
     (Math.abs(sellPrice - buyPrice) * 100) /
     sellPrice
   ).toFixed(2);
-  outputTable.style.display = 'table';
+  outputTable.classList.remove('hidden');
 }
 
 function doubleDigits(num) {
@@ -92,9 +100,15 @@ function setMaxDate() {
   datePicker.setAttribute('max', dateString);
 }
 
+function clearOutputs() {
+  outputTable.classList.add('hidden');
+  apiError.classList.add('hidden');
+}
+
 // Event Handler
 async function formDataHandler(e) {
   e.preventDefault();
+  clearOutputs();
   const formEntries = new FormData(form);
 
   const [ticker, exchange, date, numStocks] = [...formEntries.values()];
@@ -117,4 +131,4 @@ form.addEventListener('submit', formDataHandler);
 
 // Init
 setMaxDate();
-outputTable.style.display = 'none';
+clearOutputs();

@@ -50,6 +50,10 @@ body {
   text-align: center;
 }
 
+.hidden {
+  display: none;
+}
+
 input {
   padding: 0.8rem;
   border: 1px solid var(--primary-light);
