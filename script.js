@@ -13,7 +13,7 @@ const PLValue = document.querySelector('.profit-or-loss-value');
 const percEl = document.querySelector('.percentage');
 const percValue = document.querySelector('.percentage-value');
 
-const apiURL = 'http://api.marketstack.com/v1/eod';
+// const apiURL = 'http://api.marketstack.com/v1/eod';
 const key = 'c48970cc137ba88422dfb828092901cb';
 
 function displayInputErorr(flag) {
@@ -39,7 +39,7 @@ function displayAPIError(code) {
 }
 
 async function fetchData(ticker, exchange, date) {
-  const fetchURL = `${apiURL}/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
+  const fetchURL = `/api/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
 
   const urlData = await fetch(fetchURL);
 
