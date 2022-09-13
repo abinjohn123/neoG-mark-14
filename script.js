@@ -2,28 +2,50 @@
 
 const form = document.querySelector('.stock-form');
 const datePicker = document.getElementById('date-picker');
+const numStocksEl = document.getElementById('num-stocks');
 const buyValueEl = document.querySelector('.buy-value');
+const sellValueEl = document.querySelector('.sell-value');
 
 const apiURL = 'http://api.marketstack.com/v1/eod';
 const key = '35357d48e4870207f9881d6f81f0e793';
 
-function fetchData(ticker, exchange, date) {
+function displayErorr(flag) {
+  const errorHTML =
+    '<p class="error-message">Number should be greater than 0</p>';
+  if (flag) {
+    numStocksEl.insertAdjacentHTML('afterend', errorHTML);
+    numStocksEl.classList.add('error');
+  } else {
+    const errorEls = [...document.querySelectorAll('.error-message')];
+    errorEls.forEach((el) => el.remove());
+    numStocksEl.classList.remove('error');
+  }
+}
+
+async function fetchData(ticker, exchange, date) {
   const fetchURL = `${apiURL}/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
 
-  console.log(fetchURL);
+  const urlData = await fetch(fetchURL);
 
-  fetch(fetchURL)
-    .then((res) => res.json())
-    .then(
-      (json) => (buyValueEl.innerText = `Rs. ${Math.round(json.data[0].close)}`)
-    )
-    .catch((error) => console.log(error));
+  if (!urlData.status === 422) {
+    console.log('error', urlData);
+    return;
+  }
+
+  const json = await urlData.json();
+  return Math.round(json.data[0].close);
+}
+
+function outputPrice(buy, sell) {
+  buyValueEl.innerText = buy;
+  sellValueEl.innerText = sell;
+}
+
+function doubleDigits(num) {
+  return num.toString().padStart(2, '0');
 }
 
 function setMaxDate() {
-  function doubleDigits(num) {
-    return num.toString().padStart(2, '0');
-  }
   const today = new Date();
   const year = doubleDigits(today.getFullYear());
   const month = doubleDigits(today.getMonth() + 1);
@@ -34,14 +56,19 @@ function setMaxDate() {
 }
 
 // Event Handler
-function formDataHandler(e) {
+async function formDataHandler(e) {
   e.preventDefault();
   const formEntries = new FormData(form);
 
-  const [ticker, exchange, date] = [...formEntries.values()];
-  console.log(ticker, exchange, date);
+  const [ticker, exchange, date, numStocks] = [...formEntries.values()];
+  console.log(ticker, exchange, date, numStocks);
 
-  fetchData(ticker, exchange, date);
+  displayErorr(Number.parseInt(numStocks) <= 0);
+
+  const buyPrice = await fetchData(ticker, exchange, date);
+  const sellPrice = await fetchData(ticker, exchange, 'latest');
+
+  outputPrice(buyPrice, sellPrice);
 }
 
 // Event Listener
