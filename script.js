@@ -14,7 +14,7 @@ const percEl = document.querySelector('.percentage');
 const percValue = document.querySelector('.percentage-value');
 
 // const apiURL = 'http://api.marketstack.com/v1/eod';
-const key = 'c48970cc137ba88422dfb828092901cb';
+const key = '3836e64d9024018914f686e50934041a';
 
 function displayInputErorr(flag) {
   const errorHTML =
