@@ -24,20 +24,22 @@
           <input type="radio" name="exchange" id="bse" value="XBOM" />
           <label for="bse">BSE</label>
         </div>
-        <div class="form-row flex">
-          <div class="form-row-date">
-            <label for="date">Buy date</label>
-            <input type="date" name="date" id="date-picker" />
-          </div>
-          <div class="form-row-value">
-            <p class="buy-value">Rs.</p>
-          </div>
+        <div class="form-row">
+          <label for="date">Buy date</label>
+          <input type="date" name="date" id="date-picker" />
+        </div>
+        <div class="form-row">
+          <label for="num-stocks">Number of stocks: </label>
+          <input type="number" name="num-stocks" id="num-stocks" />
         </div>
         <div class="form-row">
           <button type="submit">Check</button>
         </div>
       </form>
       <div class="output-content">
+        <div class="output-buy-price">
+          <p>Buy Price: Rs <span class="buy-value"></span></p>
+        </div>
         <div class="output-curent-price">
           <p>Current Price: Rs <span class="sell-value"></span></p>
         </div>
