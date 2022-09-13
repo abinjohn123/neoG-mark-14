@@ -32,9 +32,7 @@ function displayAPIError(code) {
   apiError.classList.remove('hidden');
   if (code === 0) apiError.innerText = 'No data available for given ticker';
 
-  if (code === 1)
-    apiError.innerText =
-      'No data available for given buy date. Check if markets were open then.';
+  if (code === 1) apiError.innerText = 'No data available for given buy date';
 }
 
 async function fetchData(ticker, exchange, date) {
