@@ -14,11 +14,11 @@ const PLValue = document.querySelector('.profit-or-loss-value');
 const percEl = document.querySelector('.percentage');
 const percValue = document.querySelector('.percentage-value');
 
-const key = '19f2aa43ed79ff8563e386d8c955522e';
+const key = '18d76957283305010c961c641452c2e2';
 
 function displayInputErorr(flag) {
   const errorHTML =
-    '<p class="error-message">Number should be greater than 0</p>';
+    '<small class="error-message">Number should be greater than 0</small>';
   if (flag) {
     numStocksEl.insertAdjacentHTML('afterend', errorHTML);
     numStocksEl.classList.add('error');
@@ -31,13 +31,21 @@ function displayInputErorr(flag) {
 
 function displayAPIError(code) {
   apiError.classList.remove('hidden');
-  if (code === 0) apiError.innerText = 'No data available for given ticker';
+  if (code === 0)
+    apiError.innerText =
+      'No data available for given ticker. Check the ticker symbol.';
 
-  if (code === 1) apiError.innerText = 'No data available for given buy date';
+  if (code === 1)
+    apiError.innerText =
+      'No data available for given buy date. Check if markets were open on the buy date and if stock was listed then.';
+
+  if (code === 2)
+    apiError.innerText =
+      'Monthly request limit reached. Upgrade or change account.';
 }
 
-async function fetchData(ticker, exchange, date) {
-  const fetchURL = `https://abinjohn-pl-calculator.netlify.app/api/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
+async function fetchData(ticker, date) {
+  const fetchURL = `https://abinjohn-pl-calculator.netlify.app/api/${date}?access_key=${key}&symbols=${ticker}.XNSE`;
 
   const urlData = await fetch(fetchURL);
 
@@ -45,8 +53,12 @@ async function fetchData(ticker, exchange, date) {
     displayAPIError(0);
     return false;
   }
-
   const json = await urlData.json();
+
+  if (json.error?.code) {
+    displayAPIError(2);
+    return false;
+  }
 
   if (json.data.length === 0) {
     displayAPIError(1);
@@ -114,7 +126,7 @@ async function formDataHandler(e) {
   clearOutputs();
   const formEntries = new FormData(form);
 
-  const [ticker, exchange, date, numStocks] = [...formEntries.values()];
+  const [ticker, date, numStocks] = [...formEntries.values()];
 
   if (Number.parseInt(numStocks) <= 0) {
     displayInputErorr(true);
@@ -122,8 +134,8 @@ async function formDataHandler(e) {
   }
 
   displayInputErorr(false);
-  const buyPrice = await fetchData(ticker, exchange, date);
-  const sellPrice = await fetchData(ticker, exchange, 'latest');
+  const buyPrice = await fetchData(ticker, date);
+  const sellPrice = await fetchData(ticker, 'latest');
 
   if (buyPrice && sellPrice) outputDetails(buyPrice, sellPrice, +numStocks);
 }

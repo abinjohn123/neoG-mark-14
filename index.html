@@ -15,26 +15,13 @@
       <form class="stock-form m4">
         <div class="form-row">
           <label for="ticker">Ticker Symbol: </label>
-          <input required type="text" name="ticker" id="ticker" />
-        </div>
-        <div class="form-row">
-          <p>Choose exchange</p>
-          <div class="radios">
-            <div class="radio">
-              <input
-                type="radio"
-                name="exchange"
-                id="nse"
-                value="XNSE"
-                required
-              />
-              <label for="nse">NSE</label>
-            </div>
-            <div class="radio">
-              <input type="radio" name="exchange" id="bse" value="XBOM" />
-              <label for="bse">BSE</label>
-            </div>
-          </div>
+          <input
+            required
+            type="text"
+            name="ticker"
+            id="ticker"
+            placeholder="TCS, RELIANCE, NYKAA"
+          />
         </div>
         <div class="form-row">
           <label for="date">Buy date</label>
@@ -57,7 +44,7 @@
               <td class="buy-value"></td>
             </tr>
             <tr>
-              <td>Sell Price</td>
+              <td>Latest Price</td>
               <td class="sell-value"></td>
             </tr>
             <tr>
