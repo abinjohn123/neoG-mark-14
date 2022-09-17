@@ -14,7 +14,7 @@ const PLValue = document.querySelector('.profit-or-loss-value');
 const percEl = document.querySelector('.percentage');
 const percValue = document.querySelector('.percentage-value');
 
-const key = '3836e64d9024018914f686e50934041a';
+const key = '18d76957283305010c961c641452c2e2';
 
 function displayInputErorr(flag) {
   const errorHTML =
