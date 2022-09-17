@@ -14,8 +14,8 @@ const PLValue = document.querySelector('.profit-or-loss-value');
 const percEl = document.querySelector('.percentage');
 const percValue = document.querySelector('.percentage-value');
 
-// const key = '3836e64d9024018914f686e50934041a';
-const key = '19f2aa43ed79ff8563e386d8c955522e';
+const key = '3836e64d9024018914f686e50934041a';
+// const key = '19f2aa43ed79ff8563e386d8c955522e';
 
 function displayInputErorr(flag) {
   const errorHTML =
@@ -39,8 +39,8 @@ function displayAPIError(code) {
   if (code === 2) apiError.innerText = 'Monthly request limit reached.';
 }
 
-async function fetchData(ticker, exchange, date) {
-  const fetchURL = `https://abinjohn-pl-calculator.netlify.app/api/${date}?access_key=${key}&symbols=${ticker}.${exchange}`;
+async function fetchData(ticker, date) {
+  const fetchURL = `https://abinjohn-pl-calculator.netlify.app/api/${date}?access_key=${key}&symbols=${ticker}.XNSE`;
 
   const urlData = await fetch(fetchURL);
 
@@ -50,7 +50,7 @@ async function fetchData(ticker, exchange, date) {
   }
   const json = await urlData.json();
 
-  if (json.error.code) {
+  if (json.error?.code) {
     displayAPIError(2);
     return false;
   }
@@ -121,7 +121,7 @@ async function formDataHandler(e) {
   clearOutputs();
   const formEntries = new FormData(form);
 
-  const [ticker, exchange, date, numStocks] = [...formEntries.values()];
+  const [ticker, date, numStocks] = [...formEntries.values()];
 
   if (Number.parseInt(numStocks) <= 0) {
     displayInputErorr(true);
@@ -129,8 +129,8 @@ async function formDataHandler(e) {
   }
 
   displayInputErorr(false);
-  const buyPrice = await fetchData(ticker, exchange, date);
-  const sellPrice = await fetchData(ticker, exchange, 'latest');
+  const buyPrice = await fetchData(ticker, date);
+  const sellPrice = await fetchData(ticker, 'latest');
 
   if (buyPrice && sellPrice) outputDetails(buyPrice, sellPrice, +numStocks);
 }
