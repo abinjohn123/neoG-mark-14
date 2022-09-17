@@ -8,6 +8,20 @@ A JavaScript app that estimates profit/loss acquired on the stock market.
 - Custom error messages for incorrect Ticker and dates
 - Unique color themes for profit and loss
 
+## Sample Inputs
+
+Sample A
+
+- Ticker: TCS
+- Buy Date: 09/23/2022
+- Number of Stocks: 25
+
+Sample B
+
+- Ticker: RELIANCE
+- Buy Date: 23/10/2021
+- Number of Stocks: 4
+
 ## Tech Stack
 
 - HTML
