@@ -19,7 +19,7 @@ const key = '19f2aa43ed79ff8563e386d8c955522e';
 
 function displayInputErorr(flag) {
   const errorHTML =
-    '<p class="error-message">Number should be greater than 0</p>';
+    '<small class="error-message">Number should be greater than 0</small>';
   if (flag) {
     numStocksEl.insertAdjacentHTML('afterend', errorHTML);
     numStocksEl.classList.add('error');

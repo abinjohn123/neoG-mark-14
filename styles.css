@@ -50,7 +50,8 @@ body {
 }
 
 .error-message {
-  text-align: center;
+  text-align: start;
+  color: red;
 }
 
 .hidden {
