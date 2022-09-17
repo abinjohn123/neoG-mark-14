@@ -41,6 +41,12 @@ body {
   color: var(--text);
 }
 
+.helper-link,
+.helper-link:visited {
+  color: var(--text);
+  font-size: 1.4rem;
+}
+
 .m4 {
   margin-bottom: 4rem;
 }
