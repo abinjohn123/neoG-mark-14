@@ -13,13 +13,13 @@ A JavaScript app that estimates profit/loss acquired on the stock market.
 Sample A
 
 - Ticker: TCS
-- Buy Date: 09/23/2022
+- Buy Date: 15/09/2022
 - Number of Stocks: 25
 
 Sample B
 
 - Ticker: RELIANCE
-- Buy Date: 23/10/2021
+- Buy Date: 21/10/2021
 - Number of Stocks: 4
 
 ## Tech Stack
