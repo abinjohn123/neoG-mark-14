@@ -14,7 +14,8 @@ const PLValue = document.querySelector('.profit-or-loss-value');
 const percEl = document.querySelector('.percentage');
 const percValue = document.querySelector('.percentage-value');
 
-const key = '3836e64d9024018914f686e50934041a';
+// const key = '3836e64d9024018914f686e50934041a';
+const key = '19f2aa43ed79ff8563e386d8c955522e';
 
 function displayInputErorr(flag) {
   const errorHTML =
@@ -34,6 +35,8 @@ function displayAPIError(code) {
   if (code === 0) apiError.innerText = 'No data available for given ticker';
 
   if (code === 1) apiError.innerText = 'No data available for given buy date';
+
+  if (code === 2) apiError.innerText = 'Monthly request limit reached.';
 }
 
 async function fetchData(ticker, exchange, date) {
@@ -45,8 +48,12 @@ async function fetchData(ticker, exchange, date) {
     displayAPIError(0);
     return false;
   }
-
   const json = await urlData.json();
+
+  if (json.error.code) {
+    displayAPIError(2);
+    return false;
+  }
 
   if (json.data.length === 0) {
     displayAPIError(1);

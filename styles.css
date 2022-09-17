@@ -135,9 +135,10 @@ input:focus {
 }
 
 .output-api-error {
+  width: 100%;
   padding: 2rem;
   border-radius: 5px;
   background-color: var(--primary-lighter);
   border: 1px solid var(--primary-light);
-  text-align: start;
+  text-align: center;
 }
